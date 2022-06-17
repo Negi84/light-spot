@@ -44,10 +44,21 @@ class OrderController extends Controller
     }
     public function orderList(Request $request)
     {
-        $age = array();
-        $request->all();
-        return empty($request->all());
-        // if(isset($request))
+        if (empty($request->all())) {
+            $allOrders = Order::paginate(10);
+        } else {
+            if (isset($request->search)) {
+                Order::where('ORDER_ID', $request->search)->orWhere('name', $request->search)->orWhere('select_class', $request->search)->orWhere('select_board', $request->search)->orWhere('school_name', $request->search)->orWhere('city', $request->search)->paginate(10);
+
+            } elseif (isset($request->paymentstatus)) {
+                Order::where('paymentstatus', $request->paymentstatus)->paginate(10);
+            } else {
+                $allOrders = Order::paginate(10);
+            }
+
+        }
+
+        return view('orders', compact('allOrders'));
 
     }
 }

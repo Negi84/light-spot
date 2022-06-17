@@ -17,7 +17,20 @@
                 <li>
                     <a href="{{ route('students') }}" class="">
                         <i class="bx bx-home-circle"></i>
-                        <span key="t-contacts" style="font-size: 16px;"> Student </span>
+                        <span key="t-student" style="font-size: 16px;"> Student </span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('orders') }}" class="">
+                        <i class="bx bxs-bar-chart-alt-2"></i>
+                        <span key="t-order" style="font-size: 16px;"> Order </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('class') }}" class="">
+                        <i class="bx bxs-copy"></i>
+                        <span key="t-class" style="font-size: 16px;"> Class </span>
                     </a>
                 </li>
             </ul>
