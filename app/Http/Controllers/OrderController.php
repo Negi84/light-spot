@@ -48,16 +48,14 @@ class OrderController extends Controller
             $allOrders = Order::paginate(10);
         } else {
             if (isset($request->search)) {
-                Order::where('ORDER_ID', $request->search)->orWhere('name', $request->search)->orWhere('select_class', $request->search)->orWhere('select_board', $request->search)->orWhere('school_name', $request->search)->orWhere('city', $request->search)->paginate(10);
+                $allOrders = Order::where('ORDER_ID', $request->search)->orWhere('name', $request->search)->orWhere('select_class', $request->search)->orWhere('select_board', $request->search)->orWhere('school_name', $request->search)->orWhere('city', $request->search)->paginate(10);
 
             } elseif (isset($request->paymentstatus)) {
-                Order::where('paymentstatus', $request->paymentstatus)->paginate(10);
+                $allOrders = Order::where('paymentstatus', $request->paymentstatus == 'success' ? 'TXN_SUCCESS' : 'TXN_FAILURE')->paginate(10);
             } else {
                 $allOrders = Order::paginate(10);
             }
-
         }
-
         return view('orders', compact('allOrders'));
 
     }

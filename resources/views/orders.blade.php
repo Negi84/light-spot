@@ -21,7 +21,34 @@
                 </div>
             </form>
         </div>
+        <div class="status-btn">
+            <div class="btn-group" style="">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <span class="analytics-all-btn dropdown-selection" data-main="paymentstatus"
+                        data-value="@php echo isset(request()->paymentstatus)?request()->paymentstatus :'select'@endphp">
+                        @if (isset(request()->paymentstatus))
+                            {{ request()->paymentstatus }}
+                        @else
+                            Select Payment Status
+                        @endif
+                    </span>
+                    <i class="mdi mdi-chevron-down"></i>
+                </button>
+                <div class="dropdown-menu status-id  dropdown-height-manage">
+                    <a class="dropdown-item text-capitalize" href="#" data-type='paymentstatus' data-value="all"
+                        @if (request()->paymentstatus == 'all') style="background: #c2cef5;" @endif>All Status</a>
+                    <a class="dropdown-item text-capitalize" href="#" data-type='paymentstatus' data-value="success"
+                        @if (request()->paymentstatus == 'success') style="background: #c2cef5;" @endif>success</a>
+                    <a class="dropdown-item text-capitalize" href="#" data-type='paymentstatus' data-value="failure"
+                        @if (request()->paymentstatus == 'failure') style="background: #c2cef5;" @endif>failure</a>
+                </div>
+            </div>
+        </div>
     </div>
+
+
+
 
     <div class="row">
         <div class="col-lg-12">
@@ -100,6 +127,7 @@
     </div>
 
     <script src="{{ asset('assets/libs/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/js/dropdowns.js') }}"></script>
     <script>
         $(document).ready(function() {
             $('#add-button').on('click', function(e) {
