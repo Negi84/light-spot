@@ -3,6 +3,8 @@
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OrderController;
+use App\Http\Middleware\IsUserLoggedIn;
+use App\Http\Middleware\RedirectIfSessionIsPresent;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,14 +18,19 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::get('/admin', function () {
-    return view('auth.login');
+Route::withoutMiddleware([IsUserLoggedIn::class])->middleware([RedirectIfSessionIsPresent::class])->group(function () {
+    Route::get('/admin', function () {
+        return view('auth.login');
+    });
 });
-Route::post('/index', [LoginController::class, 'index']);
-Route::get('/students', [OrderController::class, 'studentList'])->name('students');
-Route::get('/orders', [OrderController::class, 'orderList'])->name('orders');
-Route::get('/class', [ClassController::class, 'index'])->name('class');
-Route::get('/class/{id}', [ClassController::class, 'edit']);
-Route::post('/class/update', [ClassController::class, 'update']);
-Route::get('/students/{payment_id}', [OrderController::class, 'editStudentList']);
-Route::post('/students/update', [OrderController::class, 'updateStudentDetail']);
+Route::middleware([IsUserLoggedIn::class])->withoutMiddleware([RedirectIfSessionIsPresent::class])->group(function () {
+    Route::post('/index', [LoginController::class, 'index']);
+    Route::get('/students', [OrderController::class, 'studentList'])->name('students');
+    Route::get('/orders', [OrderController::class, 'orderList'])->name('orders');
+    Route::get('/students/{payment_id}', [OrderController::class, 'editStudentList']);
+    Route::post('/students/update', [OrderController::class, 'updateStudentDetail']);
+    Route::get('/class', [ClassController::class, 'index'])->name('class');
+    Route::get('/class/{id}', [ClassController::class, 'edit']);
+    Route::post('/class/update', [ClassController::class, 'update']);
+    Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+});

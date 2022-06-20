@@ -22,4 +22,11 @@ class LoginController extends Controller
             return redirect()->back()->with('fail', 'Entered Credentials Are Wrong');
         }
     }
+
+    public function logout(Request $request)
+    {
+        session()->forget('loggedInUser');
+        session()->flush();
+        return redirect('admin');
+    }
 }
