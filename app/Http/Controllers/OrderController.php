@@ -2,29 +2,52 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Board;
 use App\Models\Order;
+use App\Models\Standard;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    public function studentList()
+    public function index(Request $request)
     {
-        if (isset(request()->search)) {
-            $allStudents = Order::where('name', 'LIKE', '%' . request()->search . '%')->paginate(10);
+
+        if (!empty($request->all())) {
+            $allStudents = Order::where('name', 'LIKE', '%' . request()->search . '%');
+            if (isset($request->board_name)) {
+                $allStudents->whereHas('board', function ($query) use ($request) {
+                    $query->where('board_name', $request->board_name);
+                });
+            }
+            if (isset($request->class_name)) {
+                $allStudents->whereHas('standard', function ($query) use ($request) {
+                    $query->where('class_name', $request->class_name);
+                });
+            }
+
+            $allStudents = $allStudents->paginate(10);
         } else {
             $allStudents = Order::paginate(10);
         }
-        return view('students', compact('allStudents'));
 
+        $standards = Standard::select('class_name')->get()->filter(function ($value) {
+            return $value->class_name != null || !empty($value->class_name);
+        })->unique('class_name');
+
+        $boards = Board::select('board_name')->get()->filter(function ($value) {
+            return $value->board_name != null || !empty($value->board_name);
+        })->unique('board_name');
+
+        return view('students', compact('allStudents', 'standards', 'boards'));
     }
 
-    public function editStudentList($payment_id)
+    public function edit($payment_id)
     {
         $student = Order::where('payment_id', $payment_id)->first();
         return view('update-student', compact('student'));
     }
 
-    public function updateStudentDetail(Request $request)
+    public function update(Request $request)
     {
         $request->validate([
             'name' => 'required',

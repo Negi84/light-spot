@@ -21,6 +21,57 @@
                 </div>
             </form>
         </div>
+
+        <div class="status-btn">
+            <div class="btn-group" style="">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <span class="analytics-all-btn dropdown-selection" data-main="class_name"
+                        data-value="@php echo isset(request()->class_name)?request()->class_name :'select'@endphp">
+                        @if (isset(request()->class_name))
+                            {{ request()->class_name }}
+                        @else
+                            Select Class Name
+                        @endif
+                    </span>
+                    <i class="mdi mdi-chevron-down"></i>
+                </button>
+                <div class="dropdown-menu status-id  dropdown-height-manage">
+                    <a class="dropdown-item text-capitalize" href="#" data-type='class_name' data-value="all"
+                        @if (request()->class_name == 'all') style="background: #c2cef5;" @endif>All Class</a>
+                    @foreach ($standards as $standard)
+                        <a class="dropdown-item text-capitalize" href="#" data-type='class_name'
+                            data-value="{{ $standard->class_name }}"
+                            @if (request()->class_name == '{{ $standard->class_name }}') style="background: #c2cef5;" @endif>{{ $standard->class_name }}</a>
+                    @endforeach
+                </div>
+            </div>
+
+            <div class="btn-group" style="">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <span class="analytics-all-btn dropdown-selection" data-main="board_name"
+                        data-value="@php echo isset(request()->board_name)?request()->board_name :'select'@endphp">
+                        @if (isset(request()->board_name))
+                            {{ request()->board_name }}
+                        @else
+                            Select Board Name
+                        @endif
+                    </span>
+                    <i class="mdi mdi-chevron-down"></i>
+                </button>
+                <div class="dropdown-menu status-id  dropdown-height-manage">
+                    <a class="dropdown-item text-capitalize" href="#" data-type='board_name' data-value="all"
+                        @if (request()->board_name == 'all') style="background: #c2cef5;" @endif>All Board</a>
+                    @foreach ($boards as $board)
+                        <a class="dropdown-item text-capitalize" href="#" data-type='board_name'
+                            data-value="{{ $board->board_name }}"
+                            @if (request()->board_name == '{{ $board->board_name }}') style="background: #c2cef5;" @endif>{{ $board->board_name }}</a>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <div class="row">
@@ -112,6 +163,7 @@
     </div>
 
     <script src="{{ asset('assets/libs/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/js/dropdowns.js') }}"></script>
     <script>
         $(document).ready(function() {
             $('#add-button').on('click', function(e) {

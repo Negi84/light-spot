@@ -12,4 +12,14 @@ class Order extends Model
     protected $primarykey = 'payment_id';
     protected $fillable = ['name', 'email', 'mobile', 'password', 'select_class', 'select_board', 'school_name', 'city'];
     public $timestamps = false;
+
+    public function standard()
+    {
+        return $this->belongsTo('App\Models\Standard', 'select_class', 'class_id');
+    }
+
+    public function board()
+    {
+        return $this->belongsTo('App\Models\board', 'select_board', 'board_id');
+    }
 }

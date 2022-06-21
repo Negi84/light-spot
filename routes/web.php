@@ -25,10 +25,10 @@ Route::withoutMiddleware([IsUserLoggedIn::class])->middleware([RedirectIfSession
 });
 Route::middleware([IsUserLoggedIn::class])->withoutMiddleware([RedirectIfSessionIsPresent::class])->group(function () {
     Route::post('/index', [LoginController::class, 'index']);
-    Route::get('/students', [OrderController::class, 'studentList'])->name('students');
+    Route::get('/students', [OrderController::class, 'index'])->name('students');
+    Route::get('/students/{payment_id}', [OrderController::class, 'edit']);
+    Route::post('/students/update', [OrderController::class, 'update']);
     Route::get('/orders', [OrderController::class, 'orderList'])->name('orders');
-    Route::get('/students/{payment_id}', [OrderController::class, 'editStudentList']);
-    Route::post('/students/update', [OrderController::class, 'updateStudentDetail']);
     Route::get('/class', [ClassController::class, 'index'])->name('class');
     Route::get('/class/{id}', [ClassController::class, 'edit']);
     Route::post('/class/update', [ClassController::class, 'update']);
