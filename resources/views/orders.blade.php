@@ -21,6 +21,29 @@
                 </div>
             </form>
         </div>
+        <div class="d-flex">
+            <form action="{{ route('orders') }}" method="GET" class="d-flex">
+                <div class="me-3">
+                    {{-- <label for="start_date">Start from</label> --}}
+                    <input type="text" placeholder="Starting Date" name="start_date" id="start_date"
+                        class="form-control input-sm"
+                        value="{{ isset(request()->start_date) ? request()->start_date : '' }}"
+                        onfocus="(this.type='date')" required>
+                </div>
+                <div class="me-3">
+                    {{-- <label for="end_date">End to</label> --}}
+                    <input type="text" placeholder="Ending Date" name="end_date" id="end_date"
+                        class="form-control input-sm" value="{{ isset(request()->end_date) ? request()->end_date : '' }}"
+                        onfocus="(this.type='date')" required>
+                </div>
+                <div>
+                    {{-- <label class="invisible">test</label> --}}
+                    <button type="submit" class="form-control">Submit</button>
+                </div>
+
+
+            </form>
+        </div>
         <div class="status-btn">
             <div class="btn-group" style="">
                 <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"

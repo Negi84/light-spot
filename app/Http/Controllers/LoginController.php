@@ -14,6 +14,7 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
+        // password_hash('admin', PASSWORD_DEFAULT);
         $userLoggedIn = User::where('user_email', $request->email)->first();
         if (isset($userLoggedIn) && password_verify($request->password, $userLoggedIn['user_password'])) {
             session()->put('loggedInUser', $userLoggedIn);

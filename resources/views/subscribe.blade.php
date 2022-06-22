@@ -24,7 +24,8 @@
                 <div class="row">
                     <div class="col-lg-3 d-flex align-items-stretch"></div>
                     <div class="col-lg-6 mt-5 mt-lg-0 d-flex align-items-stretch">
-                        <form action="" method="post" role="form" class="php-email-form">
+                        <form action="{{ route('paytm.payment') }}" method="post" role="form" class="php-email-form">
+                            @csrf
                             <h4 style="text-align:center;">Subscribe</h4>
                             <div class="form-group mt-3">
                                 <label for="name">Email ID</label>
@@ -52,22 +53,10 @@
                                 <label for="name">Select your class</label>
                                 <select for="class" name="select_class" id="signup_class_list" class="form-control">
                                     <option selected disabled hidden>Select class</option>
-                                    <option value="101">Class 1</option>
-                                    <option value="102">Class 2</option>
-                                    <option value="103">Class 3</option>
-                                    <option value="104">Class 4</option>
-                                    <option value="105">Class 5</option>
-                                    <option value="5">Class 6</option>
-                                    <option value="6">Class 7</option>
-                                    <option value="7">Class 8</option>
-                                    <option value="1">Class 9</option>
-                                    <option value="2">Class 10</option>
-                                    <option value="3">Class 11 Science</option>
-                                    <option value="503">Class 11 Commerce</option>
-                                    <option value="4">Class 12 Science</option>
-                                    <option value="504">Class 12 Commerce</option>
-                                    <option value="505">Class 12 Humanities</option>
-                                    <option value="0">Class 12+</option>
+                                    @foreach ($standards as $keyStandard => $valueStandard)
+                                        <option value="{{ $valueStandard->class_price }}">
+                                            {{ $valueStandard->class_name }} </option>
+                                    @endforeach
                                 </select>
                             </div>
 
@@ -75,9 +64,10 @@
                                 <label for="name">Select board or exam preparing for</label>
                                 <select for="class" name="select_board" class="form-control">
                                     <option selected disabled hidden>Select board/exam</option>
-                                    <option value="101">CBSE</option>
-                                    <option value="102">ICSE</option>
-                                    <option value="103">GOA</option>
+                                    @foreach ($boards as $keyboard => $valueboard)
+                                        <option value="{{ $valueboard->board_id }}">{{ $valueboard->board_name }}
+                                        </option>
+                                    @endforeach
                                 </select>
                             </div>
 
@@ -96,13 +86,13 @@
                                 <input id="ORDER_ID" tabindex="1" maxlength="20" size="20" type="hidden"
                                     name="ORDER_ID" autocomplete="off" value="<?php echo 'ORDS' . rand(10000, 99999999); ?>">
                                 <input id="CUST_ID" tabindex="2" maxlength="12" size="12" type="hidden"
-                                    name="CUST_ID" autocomplete="off" value="CUST001">
+                                    name="CUST_ID" autocomplete="off" value="CUST00108">
                                 <input id="INDUSTRY_TYPE_ID" tabindex="4" maxlength="12" size="12" type="hidden"
                                     name="INDUSTRY_TYPE_ID" autocomplete="off" value="Retail">
                                 <input id="CHANNEL_ID" tabindex="4" maxlength="12" size="12" type="hidden"
                                     name="CHANNEL_ID" autocomplete="off" value="WEB">
-                                <input title="TXN_AMOUNT" id="amount" tabindex="10" type="hidden"
-                                    name="TXN_AMOUNT" value="1">
+                                <input title="TXN_AMOUNT" id="amount" tabindex="10" type="hidden" name="TXN_AMOUNT"
+                                    value="1">
                                 <input type="hidden" name="formname" value="From subscribe now landing page">
                                 <!-- required fields for payment gateway end -->
                             </div>
@@ -115,7 +105,7 @@
                             <div class="my-3">
                                 <div class="loading">Loading</div>
 
-                                <?php /* if((isset($_GET['var'])) && (!empty($_GET['var'])) && ($_GET['var'] == 'paymentfalse')){ ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?>
+                                <?php /* if((isset($_GET['var'])) && (!empty($_GET['var'])) && ($_GET['var'] == 'paymentfalse')){ ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?>
                                 <div style="display:block;" class="error-message">Something went wrong please try
                                     again later.</div>
                                 <?php }else{ ?>

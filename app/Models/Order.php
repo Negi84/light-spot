@@ -10,7 +10,7 @@ class Order extends Model
     use HasFactory;
     protected $table = 'payment_gateway';
     protected $primarykey = 'payment_id';
-    protected $fillable = ['name', 'email', 'mobile', 'password', 'select_class', 'select_board', 'school_name', 'city'];
+    protected $fillable = ['name', 'email', 'mobile', 'password', 'select_class', 'select_board', 'school_name', 'city', 'ORDER_ID', 'CUST_ID', 'INDUSTRY_TYPE_ID', 'CHANNEL_ID', 'TXN_AMOUNT', 'formname', 'paymentstatus'];
     public $timestamps = false;
 
     public function standard()

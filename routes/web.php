@@ -3,6 +3,8 @@
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaytmController;
+use App\Http\Controllers\SubscribeController;
 use App\Http\Middleware\IsUserLoggedIn;
 use App\Http\Middleware\RedirectIfSessionIsPresent;
 use Illuminate\Support\Facades\Route;
@@ -24,9 +26,7 @@ Route::get('/', function () {
 Route::get('login', function () {
     return view('login');
 })->name('login');
-Route::get('subscribe', function () {
-    return view('subscribe');
-})->name('subscribe');
+Route::get('subscribe', [SubscribeController::class, 'index'])->name('subscribe');
 
 //Back End Routes
 Route::middleware([RedirectIfSessionIsPresent::class])
@@ -49,3 +49,7 @@ Route::middleware([IsUserLoggedIn::class])
         Route::post('/class/update', [ClassController::class, 'update']);
         Route::get('logout', [LoginController::class, 'logout'])->name('logout');
     });
+
+//Paytm Payment
+Route::post('paytm-payment', [PaytmController::class, 'paytmPayment'])->name('paytm.payment');
+Route::post('paytm-callback', [PaytmController::class, 'paytmCallback'])->name('paytm.callback');

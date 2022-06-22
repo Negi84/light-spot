@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Board;
 use App\Models\Order;
 use App\Models\Standard;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -71,12 +72,17 @@ class OrderController extends Controller
             $allOrders = Order::paginate(10);
         } else {
             if (isset($request->search)) {
-                $allOrders = Order::where('ORDER_ID', $request->search)->orWhere('name', $request->search)->orWhere('select_class', $request->search)->orWhere('select_board', $request->search)->orWhere('school_name', $request->search)->orWhere('city', $request->search)->paginate(10);
+                $allOrders = Order::where('ORDER_ID', 'LIKE', '%' . $request->search . '%')->orWhere('name', 'LIKE', '%' . $request->search . '%')->orWhere('select_class', 'LIKE', '%' . $request->search . '%')->orWhere('select_board', 'LIKE', '%' . $request->search . '%')->orWhere('school_name', 'LIKE', '%' . $request->search . '%')->orWhere('city', 'LIKE', '%' . $request->search . '%')->paginate(10);
 
-            } elseif (isset($request->paymentstatus)) {
-                $allOrders = Order::where('paymentstatus', $request->paymentstatus == 'success' ? 'TXN_SUCCESS' : 'TXN_FAILURE')->paginate(10);
             } else {
-                $allOrders = Order::paginate(10);
+                if (isset($request->paymentstatus)) {
+                    $allOrders = Order::where('paymentstatus', $request->paymentstatus == 'success' ? 'TXN_SUCCESS' : 'TXN_FAILURE')->paginate(10);
+                }
+                if (isset($request->start_date) || isset($request->end_date)) {
+                    $allOrders = Order::whereDate('date', '>=', isset($request->start_date) ? Carbon::parse($request->start_date) : Carbon::parse(now()))
+                        ->whereDate('date', '<=', isset($request->end_date) ? Carbon::parse($request->end_date) : Carbon::parse(now()))
+                        ->paginate(10);
+                }
             }
         }
         return view('orders', compact('allOrders'));
