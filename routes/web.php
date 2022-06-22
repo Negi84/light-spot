@@ -17,7 +17,18 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
  */
+//Front End Routes
+Route::get('/', function () {
+    return view('index');
+})->name('index');
+Route::get('login', function () {
+    return view('login');
+})->name('login');
+Route::get('subscribe', function () {
+    return view('subscribe');
+})->name('subscribe');
 
+//Back End Routes
 Route::middleware([RedirectIfSessionIsPresent::class])
 // ->withoutMiddleware([IsUserLoggedIn::class])
     ->group(function () {
