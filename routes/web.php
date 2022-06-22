@@ -18,19 +18,23 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::withoutMiddleware([IsUserLoggedIn::class])->middleware([RedirectIfSessionIsPresent::class])->group(function () {
-    Route::get('/admin', function () {
-        return view('auth.login');
+Route::middleware([RedirectIfSessionIsPresent::class])
+// ->withoutMiddleware([IsUserLoggedIn::class])
+    ->group(function () {
+        Route::get('/admin', function () {
+            return view('auth.login');
+        });
     });
-});
-Route::middleware([IsUserLoggedIn::class])->withoutMiddleware([RedirectIfSessionIsPresent::class])->group(function () {
-    Route::post('/index', [LoginController::class, 'index']);
-    Route::get('/students', [OrderController::class, 'index'])->name('students');
-    Route::get('/students/{payment_id}', [OrderController::class, 'edit']);
-    Route::post('/students/update', [OrderController::class, 'update']);
-    Route::get('/orders', [OrderController::class, 'orderList'])->name('orders');
-    Route::get('/class', [ClassController::class, 'index'])->name('class');
-    Route::get('/class/{id}', [ClassController::class, 'edit']);
-    Route::post('/class/update', [ClassController::class, 'update']);
-    Route::get('logout', [LoginController::class, 'logout'])->name('logout');
-});
+Route::middleware([IsUserLoggedIn::class])
+// ->withoutMiddleware([RedirectIfSessionIsPresent::class])
+    ->group(function () {
+        Route::post('/index', [LoginController::class, 'index']);
+        Route::get('/students', [OrderController::class, 'index'])->name('students');
+        Route::get('/students/{payment_id}', [OrderController::class, 'edit']);
+        Route::post('/students/update', [OrderController::class, 'update']);
+        Route::get('/orders', [OrderController::class, 'orderList'])->name('orders');
+        Route::get('/class', [ClassController::class, 'index'])->name('class');
+        Route::get('/class/{id}', [ClassController::class, 'edit']);
+        Route::post('/class/update', [ClassController::class, 'update']);
+        Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+    });
