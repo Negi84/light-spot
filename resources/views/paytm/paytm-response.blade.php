@@ -152,6 +152,11 @@
                                 </tr>
                             </tbody>
                         </table>
+
+                    </div>
+                    <div class="">
+                        <button type="button" class="btn btn-primary btn-lg" style=" margin-left: -7rem;"
+                            onclick="window.location.href='/'">Home</button>
                     </div>
 
 
