@@ -8,6 +8,10 @@
             max-height: 250px;
             overflow: auto;
         }
+
+        .take-date {
+            width: 9rem !important;
+        }
     </style>
 @endsection
 @section('content')
@@ -16,31 +20,37 @@
             <form class="app-search d-none d-lg-block" method="GET">
                 <div class="position-relative">
                     <input type="text" class="form-control" name="search"
-                        @if (isset(request()->search)) value="{{ request()->search }}"  @else placeholder="Search name..." @endif>
+                        @if (isset(request()->search)) value="{{ request()->search }}"  @else placeholder="Search name..." @endif
+                        onfocus="this.style.border='1px solid silver'" onblur="this.style.border=''">
                     <span class="bx bx-search-alt"></span>
                 </div>
             </form>
         </div>
         <div class="d-flex">
-            <form action="{{ route('orders') }}" method="GET" class="d-flex">
+            <form method="GET" class="d-flex" style="width:25.7rem!important">
                 <div class="me-3">
+                    <input type="text" name="paymentstatus" id="paymentstatus"
+                        value="{{ isset(request()->paymentstatus) ? request()->paymentstatus : '' }}"
+                        @isset(request()->paymentstatus) @else disabled @endisset hidden>
                     {{-- <label for="start_date">Start from</label> --}}
                     <input type="text" placeholder="Starting Date" name="start_date" id="start_date"
-                        class="form-control input-sm"
+                        class="form-control input-sm take-date"
                         value="{{ isset(request()->start_date) ? request()->start_date : '' }}"
-                        onfocus="(this.type='date')" required>
+                        onfocus="this.type='date';" required>
                 </div>
                 <div class="me-3">
                     {{-- <label for="end_date">End to</label> --}}
                     <input type="text" placeholder="Ending Date" name="end_date" id="end_date"
-                        class="form-control input-sm" value="{{ isset(request()->end_date) ? request()->end_date : '' }}"
-                        onfocus="(this.type='date')" required>
+                        class="form-control input-sm take-date"
+                        value="{{ isset(request()->end_date) ? request()->end_date : '' }}" onfocus="(this.type='date')"
+                        required>
                 </div>
-                <div>
+                <div class="mx-2">
                     {{-- <label class="invisible">test</label> --}}
-                    <button type="submit" class="form-control">Submit</button>
+                    <button type="submit" class="form-control bg-success text-white ">Submit</button>
                 </div>
-
+                <i class="mdi mdi-refresh refresh-btn" style="font-size: 26px;"
+                    onclick="console.log('check');window.location.href='/orders'"></i>
 
             </form>
         </div>

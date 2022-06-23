@@ -9,10 +9,11 @@ class ClassController extends Controller
 {
     public function index(Request $request)
     {
+        $allClass = Standard::query();
         if (isset(request()->search)) {
-            $allClass = Standard::where('class_name', 'LIKE', '%' . request()->search . '%')->paginate(10);
+            $allClass = $allClass->where('class_name', 'LIKE', '%' . request()->search . '%')->paginate(10);
         } else {
-            $allClass = Standard::paginate(10);
+            $allClass = $allClass->paginate(10);
         }
         return view('class', compact('allClass'));
     }

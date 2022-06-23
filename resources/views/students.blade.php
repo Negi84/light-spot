@@ -16,16 +16,21 @@
             <form class="app-search d-none d-lg-block" method="GET">
                 <div class="position-relative">
                     <input type="text" class="form-control" name="search"
-                        @if (isset(request()->search)) value="{{ request()->search }}"  @else placeholder="Search name..." @endif>
+                        @if (isset(request()->search)) value="{{ request()->search }}"  @else placeholder="Search name..." @endif
+                        onfocus="this.style.border='1px solid silver'" onblur="this.style.border=''">
                     <span class="bx bx-search-alt"></span>
                 </div>
             </form>
         </div>
 
         <div class="status-btn">
+
+
             <div class="btn-group" style="">
+                <i class="mdi mdi-refresh refresh-btn" style="font-size: 26px;"
+                    onclick="console.log('check');window.location.href='/students'"></i>
                 <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
-                    aria-expanded="false">
+                    aria-expanded="false" style="margin-left: 4px;">
                     <span class="analytics-all-btn dropdown-selection" data-main="class_name"
                         data-value="@php echo isset(request()->class_name)?request()->class_name :'select'@endphp">
                         @if (isset(request()->class_name))
@@ -126,11 +131,13 @@
                                         </td>
                                         <td>
                                             <h5 class="font-size-14 mb-1"><a href="#"
-                                                    class="text-dark">{{ $student['select_board'] ?? '' }}</a></h5>
+                                                    class="text-dark">{{ $student['board']['board_name'] ?? '' }}</a>
+                                            </h5>
                                         </td>
                                         <td>
                                             <h5 class="font-size-14 mb-1"><a href="#"
-                                                    class="text-dark">{{ $student['select_class'] ?? '' }}</a></h5>
+                                                    class="text-dark">{{ $student['standard']['class_name'] ?? '' }}</a>
+                                            </h5>
                                         </td>
                                         <td>
                                             <h5 class="font-size-14 mb-1"><a href="#"

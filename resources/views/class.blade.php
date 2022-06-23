@@ -16,7 +16,8 @@
             <form class="app-search d-none d-lg-block" method="GET">
                 <div class="position-relative">
                     <input type="text" class="form-control" name="search"
-                        @if (isset(request()->search)) value="{{ request()->search }}"  @else placeholder="Search name..." @endif>
+                        @if (isset(request()->search)) value="{{ request()->search }}"  @else placeholder="Search name..." @endif
+                        onfocus="this.style.border='1px solid silver'" onblur="this.style.border=''">
                     <span class="bx bx-search-alt"></span>
                 </div>
             </form>

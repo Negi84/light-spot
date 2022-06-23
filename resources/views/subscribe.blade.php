@@ -19,7 +19,7 @@
         </section>
         <!-- End Breadcrumbs -->
 
-        <section id="contact" class="contact">
+        <section class="contact">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-3 d-flex align-items-stretch"></div>
@@ -29,7 +29,8 @@
                             <h4 style="text-align:center;">Subscribe</h4>
                             <div class="form-group mt-3">
                                 <label for="name">Email ID</label>
-                                <input type="email" class="form-control" name="email" required>
+                                <input type="email" class="form-control" name="email" autocorrect="nope"
+                                    autocomplete="nope" required>
                             </div>
 
                             <div class="form-group mt-3">
@@ -39,22 +40,25 @@
 
                             <div class="form-group mt-3">
                                 <label for="name">Mobile Number</label>
-                                <input for="mobile" class="form-control" type="tel" name="mobile" autocorrect="nope"
-                                    autocomplete="nope" class="ccWithFlag validate[required,custom[phone]]"
-                                    placeholder="9899000000" data-prompt-position="bottomLeft" />
+                                <input for="mobile" class="form-control" autocorrect="nope" autocomplete="nope"
+                                    placeholder="9899000000" data-prompt-position="bottomLeft" maxlength="10"
+                                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                    type="text" name="mobile" required />
                             </div>
 
                             <div class="form-group mt-3">
                                 <label for="name">Password</label>
-                                <input type="password" class="form-control" name="password" required>
+                                <input type="password" class="form-control" name="password" value="{{ old('password') }}"
+                                    required>
                             </div>
 
                             <div class="form-group mt-3">
                                 <label for="name">Select your class</label>
-                                <select for="class" name="select_class" id="signup_class_list" class="form-control">
-                                    <option selected disabled hidden>Select class</option>
+                                <select for="class" name="select_class" id="signup_class_list" class="form-control"
+                                    required>
+                                    <option value="" selected disabled>Select class</option>
                                     @foreach ($standards as $keyStandard => $valueStandard)
-                                        <option value="{{ $valueStandard->class_price }}">
+                                        <option value="{{ $valueStandard->class_id }}">
                                             {{ $valueStandard->class_name }} </option>
                                     @endforeach
                                 </select>
@@ -63,7 +67,7 @@
                             <div class="form-group mt-3">
                                 <label for="name">Select board or exam preparing for</label>
                                 <select for="class" name="select_board" class="form-control">
-                                    <option selected disabled hidden>Select board/exam</option>
+                                    <option value="" selected disabled>Select board/exam</option>
                                     @foreach ($boards as $keyboard => $valueboard)
                                         <option value="{{ $valueboard->board_id }}">{{ $valueboard->board_name }}
                                         </option>
@@ -91,8 +95,8 @@
                                     name="INDUSTRY_TYPE_ID" autocomplete="off" value="Retail">
                                 <input id="CHANNEL_ID" tabindex="4" maxlength="12" size="12" type="hidden"
                                     name="CHANNEL_ID" autocomplete="off" value="WEB">
-                                <input title="TXN_AMOUNT" id="amount" tabindex="10" type="hidden" name="TXN_AMOUNT"
-                                    value="1">
+                                <input title="TXN_AMOUNT" id="amount" tabindex="10" type="hidden"
+                                    name="TXN_AMOUNT" value="1">
                                 <input type="hidden" name="formname" value="From subscribe now landing page">
                                 <!-- required fields for payment gateway end -->
                             </div>
@@ -105,7 +109,23 @@
                             <div class="my-3">
                                 <div class="loading">Loading</div>
 
-                                <?php /* if((isset($_GET['var'])) && (!empty($_GET['var'])) && ($_GET['var'] == 'paymentfalse')){ ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?>
+                                <?php /* if((isset($_GET['var'])) && (!empty($_GET['var'])) && ($_GET['var'] == 'paymentfalse')){ ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?> ?>
+                                ?>
+                                ?>
+                                ?>
+                                ?>
+                                ?>
+                                ?>
+                                ?>
+                                ?>
+                                ?>
+                                ?>
+                                ?>
+                                ?>
+                                ?>
+                                ?>
+                                ?>
+                                ?>
                                 <div style="display:block;" class="error-message">Something went wrong please try
                                     again later.</div>
                                 <?php }else{ ?>

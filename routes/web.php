@@ -40,7 +40,7 @@ Route::middleware([IsUserLoggedIn::class])
 // ->withoutMiddleware([RedirectIfSessionIsPresent::class])
     ->group(function () {
         Route::post('/index', [LoginController::class, 'index']);
-        Route::get('/students', [OrderController::class, 'index'])->name('students');
+        Route::get('/students', [OrderController::class, 'studentList'])->name('students');
         Route::get('/students/{payment_id}', [OrderController::class, 'edit']);
         Route::post('/students/update', [OrderController::class, 'update']);
         Route::get('/orders', [OrderController::class, 'orderList'])->name('orders');
@@ -53,3 +53,6 @@ Route::middleware([IsUserLoggedIn::class])
 //Paytm Payment
 Route::post('paytm-payment', [PaytmController::class, 'paytmPayment'])->name('paytm.payment');
 Route::post('paytm-callback', [PaytmController::class, 'paytmCallback'])->name('paytm.callback');
+Route::get('paytm-callback', function () {
+    return redirect('/');
+});

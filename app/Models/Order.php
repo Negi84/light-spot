@@ -20,6 +20,6 @@ class Order extends Model
 
     public function board()
     {
-        return $this->belongsTo('App\Models\board', 'select_board', 'board_id');
+        return $this->belongsTo('App\Models\Board', 'select_board', 'board_id');
     }
 }

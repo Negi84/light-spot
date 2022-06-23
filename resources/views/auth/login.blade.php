@@ -25,8 +25,8 @@ die();
             margin-bottom: 2rem;
         }
 
-        .mt_9 {
-            margin-top: 9rem;
+        .mt_18 {
+            margin-top: 18rem;
         }
     </style>
 @endsection
@@ -47,7 +47,7 @@ die();
                                 <div class="bg-overlay"></div>
                                 <div class="d-flex h-100 flex-column">
 
-                                    <div class="p-4 mt_9">
+                                    <div class="p-4 mt_18">
                                         <div class="row justify-content-center">
                                             <div class="col-lg-7">
                                                 <div class="text-center">
@@ -62,7 +62,7 @@ die();
                                                                         <img class="login-panel-second-logo"
                                                                             src="{{ asset('assets/images/light-spot-logo.png') }}"
                                                                             alt="loding image"
-                                                                            style="width: 50% !important;">
+                                                                            style="width: 75% !important;">
                                                                     </div>
                                                                     {{-- <p class="font-size-16 mb-4 text-md-center">Broadcast
                                                                         Engineering
